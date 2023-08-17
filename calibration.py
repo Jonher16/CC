@@ -8,6 +8,9 @@ CHESS_BOARD_DIM = (10, 7)
 # The size of Square in the checker board.
 SQUARE_SIZE = 23  # millimeters
 
+# Test image path
+TEST_IMAGE_PATH = "images/image2.png"
+
 # termination criteria
 criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
@@ -60,9 +63,7 @@ cv.destroyAllWindows()
 ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(
     obj_points_3D, img_points_2D, grayScale.shape[::-1], None, None
 )
-print("calibrated")
-
-print("duming the data into one files using numpy ")
+print("Calibrated.")
 np.savez(
     f"{calib_data_path}/MultiMatrix",
     camMatrix=mtx,
@@ -73,7 +74,7 @@ np.savez(
 
 print("-------------------------------------------")
 
-print("loading data stored using numpy savez function\n \n \n")
+print("Loading stored data.\n \n \n")
 
 data = np.load(f"{calib_data_path}/MultiMatrix.npz")
 camMatrix = data["camMatrix"]
@@ -82,12 +83,10 @@ rVector = data["rVector"]
 tVector = data["tVector"]
 print("Matrix: ", camMatrix)
 print("distCof: ", distCof)
-print("rVector: ", rVector)
-print("tVector: ", tVector)
-print("loaded calibration data successfully")
+print("Calibration data loaded successfully.")
 
 # Load an image
-image = cv.imread("images/image2.png")
+image = cv.imread(TEST_IMAGE_PATH)
 
 # Correct distortion
 undistorted_image = cv.undistort(image, camMatrix, distCof)
