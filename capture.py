@@ -18,6 +18,19 @@ else:
 
 criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
+def check_devices():
+    index = 0
+    arr = []
+    while True:
+        cap = cv.VideoCapture(index)
+        if not cap.read()[0]:
+            break
+        else:
+            arr.append(index)
+        cap.release()
+        index += 1
+    return arr
+
 
 def detect_checker_board(image, grayImage, criteria, boardDimension):
     ret, corners = cv.findChessboardCorners(grayImage, boardDimension)
@@ -28,7 +41,13 @@ def detect_checker_board(image, grayImage, criteria, boardDimension):
     return image, ret
 
 
-cap = cv.VideoCapture(0, cv.CAP_DSHOW)
+device_list = check_devices()
+print(device_list)
+cap = cv.VideoCapture(device_list[0], cv.CAP_DSHOW)
+
+# Set the resolution to 1920x1080
+cap.set(cv.CAP_PROP_FRAME_WIDTH, 1920)
+cap.set(cv.CAP_PROP_FRAME_HEIGHT, 1080)
 
 while True:
     _, frame = cap.read()

@@ -6,17 +6,17 @@ import numpy as np
 CHESS_BOARD_DIM = (10, 7)
 
 # The size of Square in the checker board.
-SQUARE_SIZE = 23  # millimeters
+SQUARE_SIZE = 19.7  # millimeters
 
 # Test image path
-TEST_IMAGE_PATH = "images/image2.png"
+TEST_IMAGE_PATH = "images/image4.png"
 
 # termination criteria
 criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
 
 calib_data_path = "calib_data"
-CHECK_DIR = os.path.isdir(calib_data_path)
+CHECK_DIR = os.path.isdir(calib_data_path) 
 
 
 if not CHECK_DIR:
